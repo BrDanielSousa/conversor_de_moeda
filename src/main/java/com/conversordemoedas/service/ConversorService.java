@@ -1,5 +1,6 @@
 package com.conversordemoedas.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,12 +12,17 @@ import java.net.http.HttpResponse;
 @Service
 public class ConversorService {
 
-    public String converter(Integer quantia, String moeda, String moedaParaConverter) throws IOException, InterruptedException {
+    @Value("${api.conversor.key}")
+    private String apiKey;
+
+    private static final String CONVERSOR_PATH_ROOT = "https://api.apilayer.com/exchangerates_data/convert";
+
+    public String converter(Double valor, String moeda, String moedaParaConverter) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("https://api.apilayer.com/exchangerates_data/convert?to=" + moeda + "&from=" + moedaParaConverter + "&amount=" + quantia))
-                .header("apikey", "GGPjDUrCYZM4wXUbdL5DohLixlWnR5Hj")
+                .uri(URI.create(CONVERSOR_PATH_ROOT + "?to=" + moeda + "&from=" + moedaParaConverter + "&amount=" + valor))
+                .header("apikey", apiKey)
                 .build();
 
         HttpClient httpClient = HttpClient.newBuilder().build();

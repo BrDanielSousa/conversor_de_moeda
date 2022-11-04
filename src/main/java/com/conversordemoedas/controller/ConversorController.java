@@ -14,13 +14,13 @@ import java.io.IOException;
 public class ConversorController {
 
     @Autowired
-    ConversorService conversorService;
+    private ConversorService conversorService;
 
     @GetMapping(path = "/{quantidade}/{moeda}/{moedaParaConverter}")
-    public String getConverter(@PathVariable("quantidade") Integer quantidade,
+    public String getConverter(@PathVariable("quantidade") Double valor,
                                @PathVariable("moeda") String moeda,
                                @PathVariable("moedaParaConverter") String moedaParaConverter) throws IOException, InterruptedException {
 
-        return conversorService.converter(quantidade, moeda, moedaParaConverter);
+        return conversorService.converter(valor, moeda, moedaParaConverter);
     }
 }
