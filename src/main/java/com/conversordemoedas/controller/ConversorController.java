@@ -1,5 +1,6 @@
 package com.conversordemoedas.controller;
 
+import com.conversordemoedas.enums.CodeCoin;
 import com.conversordemoedas.service.ConversorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,10 @@ public class ConversorController {
     @Autowired
     private ConversorService conversorService;
 
-    @GetMapping(path = "/{quantidade}/{moeda}/{moedaParaConverter}")
-    public String getConverter(@PathVariable("quantidade") Double valor,
-                               @PathVariable("moeda") String moeda,
-                               @PathVariable("moedaParaConverter") String moedaParaConverter) throws IOException, InterruptedException {
+    @GetMapping(path = "/{valor}/{moeda}/{moedaParaConverter}")
+    public String getConverter(@PathVariable("valor") Double valor,
+                               @PathVariable("moeda") CodeCoin moeda,
+                               @PathVariable("moedaParaConverter") CodeCoin moedaParaConverter) throws IOException, InterruptedException {
 
         return conversorService.converter(valor, moeda, moedaParaConverter);
     }

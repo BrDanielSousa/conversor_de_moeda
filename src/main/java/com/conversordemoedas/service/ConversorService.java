@@ -1,5 +1,6 @@
 package com.conversordemoedas.service;
 
+import com.conversordemoedas.enums.CodeCoin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,11 @@ public class ConversorService {
 
     private static final String CONVERSOR_PATH_ROOT = "https://api.apilayer.com/exchangerates_data/convert";
 
-    public String converter(Double valor, String moeda, String moedaParaConverter) throws IOException, InterruptedException {
+    public String converter(Double valor, CodeCoin moeda, CodeCoin moedaParaConverter) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(CONVERSOR_PATH_ROOT + "?to=" + moeda + "&from=" + moedaParaConverter + "&amount=" + valor))
+                .uri(URI.create(CONVERSOR_PATH_ROOT + "?to=" + moeda.name() + "&from=" + moedaParaConverter.name() + "&amount=" + valor))
                 .header("apikey", apiKey)
                 .build();
 
