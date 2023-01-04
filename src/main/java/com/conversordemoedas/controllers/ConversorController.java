@@ -1,7 +1,7 @@
-package com.conversordemoedas.controller;
+package com.conversordemoedas.controllers;
 
 import com.conversordemoedas.enums.CodeCoin;
-import com.conversordemoedas.service.ConversorService;
+import com.conversordemoedas.services.ConversorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

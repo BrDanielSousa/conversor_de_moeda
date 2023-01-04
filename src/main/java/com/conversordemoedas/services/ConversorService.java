@@ -1,4 +1,4 @@
-package com.conversordemoedas.service;
+package com.conversordemoedas.services;
 
 import com.conversordemoedas.enums.CodeCoin;
 import org.springframework.beans.factory.annotation.Value;
