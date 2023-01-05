@@ -1,5 +1,7 @@
 package com.conversordemoedas.models;
 
+import com.conversordemoedas.enums.CodeCoin;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
@@ -29,7 +31,7 @@ public class HistoricoModel implements Serializable {
         this.id = id;
     }
 
-    public String getValorIncial() {
+    public String getValorIncial(Double valor) {
         return valorIncial;
     }
 
@@ -37,23 +39,23 @@ public class HistoricoModel implements Serializable {
         this.valorIncial = valorIncial;
     }
 
-    public String getMoeda() {
-        return moeda;
+    public String getMoeda(CodeCoin moeda) {
+        return this.moeda;
     }
 
     public void setMoeda(String moeda) {
         this.moeda = moeda;
     }
 
-    public String getMoedaParaConverter() {
-        return moedaParaConverter;
+    public String getMoedaParaConverter(CodeCoin moedaParaConverter) {
+        return this.moedaParaConverter;
     }
 
     public void setMoedaParaConverter(String moedaParaConverter) {
         this.moedaParaConverter = moedaParaConverter;
     }
 
-    public String getValorConvertido() {
+    public String getValorConvertido(double result) {
         return valorConvertido;
     }
 

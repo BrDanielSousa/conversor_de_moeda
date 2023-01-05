@@ -1,6 +1,10 @@
 package com.conversordemoedas.services;
 
 import com.conversordemoedas.enums.CodeCoin;
+import com.conversordemoedas.models.HistoricoModel;
+import com.conversordemoedas.repositories.HistoricoRepository;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +22,14 @@ public class ConversorService {
 
     private static final String CONVERSOR_PATH_ROOT = "https://api.apilayer.com/exchangerates_data/convert";
 
+    @Autowired
+    private HistoricoRepository historicoRepository;
+
     public String converter(Double valor, CodeCoin moeda, CodeCoin moedaParaConverter) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(CONVERSOR_PATH_ROOT + "?to=" + moeda.name() + "&from=" + moedaParaConverter.name() + "&amount=" + valor))
+                .uri(URI.create(CONVERSOR_PATH_ROOT + "?to=" + moedaParaConverter.name() + "&from=" + moeda.name() + "&amount=" + valor))
                 .header("apikey", apiKey)
                 .build();
 
@@ -30,6 +37,18 @@ public class ConversorService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
+        JSONObject resposta = new JSONObject(response.body().toString());
+
+        var result = resposta.getDouble("result");
+
+        var historicoModel = new HistoricoModel();
+
+        historicoModel.setValorIncial(String.valueOf(valor));
+        historicoModel.setMoeda(String.valueOf(moeda));
+        historicoModel.setMoedaParaConverter(String.valueOf(moedaParaConverter));
+        historicoModel.setValorConvertido(String.valueOf(result));
+
+        historicoRepository.save(historicoModel);
         return response.body();
     }
 }
