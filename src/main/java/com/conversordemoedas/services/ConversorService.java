@@ -37,9 +37,9 @@ public class ConversorService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JSONObject resposta = new JSONObject(response.body().toString());
+        JSONObject resposta = new JSONObject(response.body().toString());//Pegando as informacoes em tipo string e transformando em json
 
-        var result = resposta.getDouble("result");
+        var result = resposta.getDouble("result");//Pegando o valor do resultado da conversao
 
         var historicoModel = new HistoricoModel();
 
